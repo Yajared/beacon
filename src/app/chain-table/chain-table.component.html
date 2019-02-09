@@ -1,0 +1,13 @@
+<div>Last Price: {{lastPrice}}</div>
+<table>
+  <tr>
+    <th class="headers">Strike Prices</th>
+    <th class="headers center" *ngFor="let expiration of expirations">{{expiration}}</th>
+  </tr>
+  <tr *ngFor="let strike of strikes">
+    <td [ngClass]="{'inTheMoney' : strike <= lastPrice}" class="strikeHeader">{{strike}}</td>
+    <ng-container *ngFor="let chain of chains">
+      <td [ngClass]="{'inTheMoney' : strike <= lastPrice}" class="center"><span *ngIf="contractsByStrike.calls[strike][chain.expiration]"><span class="bid">{{contractsByStrike.calls[strike][chain.expiration].bid}}</span> / <span class="ask">{{contractsByStrike.calls[strike][chain.expiration].ask}}</span></span></td>
+    </ng-container>
+  </tr>
+</table>
